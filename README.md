@@ -29,7 +29,7 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 python drive.py model.h5
 ```
 ### Model Architecture and Training Strategy
-#### 1. An appropriate model architecture has been employed
+#### 1. Using Single Layer Model
 
 I tried a single layer model to verify if everything is working. The single layer model input is shown as follows
 ```
@@ -38,6 +38,10 @@ model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch)))
 model.add(Lambda(lambda x: x/127.5 - 1.))
 model.add(Flatten())
 model.add(Dense(1))
+model.summary()
+model.compile(loss='mse', optimizer='adam',metrics=['accuracy'])
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
+model.save('model.h5') #save the model
 ```
 
 #### 1. Output
@@ -65,6 +69,13 @@ Epoch 1/2
 Epoch 2/2
 38572/38572 [==============================] - 23s - loss: 1.5817 - acc: 0.0633 - val_loss: 2.0330 - val_acc: 0.0555
 ```
+The single layer model has high validation loss and very small validation accuracy. The car doesn't stay on road while in autonomous mode. 
+But this architecture helps in confirming that all prerequisites are met. 
+
+#### 2. Using LENET Architecture 
+The next architecture used was LENET, since LENET is a very first convolutional architecture developed to recognize characters 
+
+![LENET Architecture](http://www.pyimagesearch.com/wp-content/uploads/2016/06/lenet_architecture.png)
 
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
