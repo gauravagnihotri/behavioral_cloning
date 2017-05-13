@@ -147,7 +147,7 @@ The figure[2] shows the architecture layout, the network has about 250 thousand 
 
 The Nvidia architecture was used here but with RELU activations instead of ELU activation functions. ELU activation often resulted in car leaving the track instead of trying to stay on course. This was observed without modifying any other parameters (same architecture, same data, same number of epochs)
 
-'''
+```
 model = Sequential()
 model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch))) #crop the data to remove sky and trees 
 model.add(Lambda(lambda x: x/127.5 - 1.)) # Preprocess incoming data, centered around zero with small standard deviation
