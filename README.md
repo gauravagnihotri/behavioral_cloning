@@ -76,6 +76,7 @@ But this architecture helps in confirming that all prerequisites are met.
 The next architecture used was LENET, since LENET is a very first convolutional architecture developed to recognize characters 
 
 ![LENET Architecture](http://www.pyimagesearch.com/wp-content/uploads/2016/06/lenet_architecture.png)
+
 Fig. shows the flow of LENET Arch [1]
 
 ```
@@ -133,7 +134,7 @@ Epoch 1/1
 
 LENET architecture is complex enough to train the car to go round half of the track, however, the car tries to correct itself too often, resulting in not very smooth performance. The validation loss kept increasing with number of epochs, hence only one epoch was used. The vehicle also drives closer to the edge of the track rather than the center. The vehicle could complete the lap without getting off the road, however the performance is not very consistent and in a separate run, the vehicle brushed with the edge of the bridge. 
 
-[![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg?time=1494714127121)](https://youtu.be/gLNZs3Dik_U)
+[![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U)
 
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
