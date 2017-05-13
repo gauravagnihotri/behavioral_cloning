@@ -137,7 +137,7 @@ LENET architecture is complex enough to train the car to go round half of the tr
 ##fix the link here 
 [![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U) 
 
-#### 3. Using Nvidia Architecture 
+#### 3. Using Nvidia Architecture (Final Model Architecture)
 Nvidia has developed their own network architecture[2] 'to minimize the mean squared error between the steering command output by the network'[2]
 The Nvidia architecture contains total of 9 layers. It contains 5 convolutional layers, 3 fully conntected layers and a normalization layer. 
 
@@ -204,10 +204,56 @@ Train on 38572 samples, validate on 9644 samples
 Epoch 1/1
 38572/38572 [==============================] - 21s - loss: 0.0175 - acc: 0.1802 - val_loss: 0.0204 - val_acc: 0.1837
 ```
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model consists of a convolution neural network with three 5x5 filter sizes and depths of 24, 36 and 48 [code lines 66 through 68], and two 3x3 filters with depth of 64 [code lines 69 and 70] followed by flattening layer and 3 fully connected layers with sizes 100, 50, 10. The final output layer of 1 is the output for steering angle. While Nvidia Architecture accepts 66 x 200 as input image, my implementation uses 65 x 320 [hence modified Nvidia Arch]
+ 
+The model includes RELU layers to introduce nonlinearity (code lines 66 through 70), and the data is normalized in the model using a Keras lambda layer (code line 65). 
+```
+model.add(Lambda(lambda x: x/127.5 - 1.))
+```
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. 
+With large number of epochs, I found that the loss on validation set kept increasing. This implied that the model was overfitting. 
 
+To combat the overfitting issue, the number of epochs was reduced down to 2, this prevented the validation loss from increasing. 
+
+#### Model parameter tuning
+
+The model used an adam optimizer, so the learning rate was not tuned manually 
+
+#### Training Set & Training Process
+
+The sample training data was chosen since it contained analog steering angles from a joystick. 
+
+For details about how I created the training data, see the next section. 
+
+### Model Architecture and Training Strategy
+The overall strategy involved using multiple training data sets, identifying flaws by checking the validation accuracy and testing the model by running the simulator in autonomous mode. Modifying model parameters, architectures, epochs to minimize the error. If the vehicle drove off of the road, the training data was reacquired and the model was trained to recover. This strategy was hit and miss since the original data contained some flaws. Eventually, the sample data set was used along with left and right camera images, center image, flipped all images and reversed the steering measurements. The following code shows the steering correction and flip strategy used on all images to develop augmented data set. 
+
+```
+center_image = cv2.imread(center_image_path) 
+left_image = cv2.imread(left_image_path)
+right_image = cv2.imread(right_image_path)
+
+steering_correction_factor = 0.20 # this is a parameter to tune
+left_steering_angle = center_steering_angle + steering_correction_factor
+right_steering_angle = center_steering_angle - steering_correction_factor
+
+images.extend([center_image, left_image, right_image])
+measurements.extend([center_steering_angle, left_steering_angle, right_steering_angle])
+
+for image,measurement in zip(images,measurements):
+    augmented_images.append(image)
+    augmented_measurements.append(measurement)
+    augmented_images.append(cv2.flip(image,1)) #flip and append all images
+    augmented_measurements.append(measurement*-1.0) #flip all steering angles 
+```
+
+### Data Preprocessing
+Images were cropped in Keras model using ```model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch))) #crop the data to remove sky and trees```
+
+| Original Image | Area of interest | Cropped Image |
+|:---:|:---:|:---:|
+| ![alt-text](./images/original_image.jpg "Original Image") | ![alt-text](./images/selection_image.jpg "Area of Interest Image") | ![alt-text](./images/cropped_image.jpg "Cropped Image") |
 
 ## Details About Files In This Directory
 
@@ -225,8 +271,6 @@ python drive.py model.h5
 ```
 
 The above command will load the trained model and use the model to make predictions on individual images in real-time and send the predicted angle back to the server via a websocket connection.
-
-Note: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
 
 ## References 
 
