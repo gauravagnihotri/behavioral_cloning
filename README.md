@@ -2,15 +2,7 @@
 
 Overview
 ---
-This project uses a modified version of [Nvidia's Architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) to train a model to clone driving behavior. The model is built using Keras (keras uses Tensorflow Backend).
-
-The Project
----
-The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior 
-* Design, train and validate a model that predicts a steering angle from image data
-* Use the model to drive the vehicle autonomously around the first track in the simulator. The vehicle should remain on the road for an entire loop around the track.
-* Summarize the results with a written report
+This project uses a modified version of [Nvidia's Architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) to train a model to clone driving behavior. The model is built using Keras.
 
 ### Dependencies
 This lab requires:
@@ -21,10 +13,15 @@ The lab enviroment can be created with CarND Term1 Starter Kit. Click [here](htt
 
 * [Linux Simulator Link](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58ae46bb_linux-sim/linux-sim.zip)
 
-The following resources can be found in this github repository:
-* drive.py
-* video.py
-* writeup_template.md
+###Files Submitted & Code Quality
+
+####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+
+My project includes the following files:
+* model.py containing the script to create and train the model
+* drive.py for driving the car in autonomous mode
+* model.h5 containing a trained convolution neural network 
+* writeup_report.md or writeup_report.pdf summarizing the results
 
 
 ## Details About Files In This Directory
