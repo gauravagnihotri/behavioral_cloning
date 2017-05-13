@@ -134,8 +134,76 @@ Epoch 1/1
 
 LENET architecture is complex enough to train the car to go round half of the track, however, the car tries to correct itself too often, resulting in not very smooth performance. The validation loss kept increasing with number of epochs, hence only one epoch was used. The vehicle also drives closer to the edge of the track rather than the center. The vehicle could complete the lap without getting off the road, however the performance is not very consistent and in a separate run, the vehicle brushed with the edge of the bridge. 
 
-[![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U)
+##fix the link here 
+[![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U) 
 
+#### 3. Using Nvidia Architecture 
+Nvidia has developed their own network architecture[2] 'to minimize the mean squared error between the steering command output by the network'[2]
+The Nvidia architecture contains total of 9 layers. It contains 5 convolutional layers, 3 fully conntected layers and a normalization layer. 
+
+![Nvidia Architecture](https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-768x1095.png)
+
+The figure[2] shows the architecture layout, the network has about 250 thousand parameters[2]
+
+The Nvidia architecture was used here but with RELU activations instead of ELU activation functions. ELU activation often resulted in car leaving the track instead of trying to stay on course. This was observed without modifying any other parameters (same architecture, same data, same number of epochs)
+
+'''
+model = Sequential()
+model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch))) #crop the data to remove sky and trees 
+model.add(Lambda(lambda x: x/127.5 - 1.)) # Preprocess incoming data, centered around zero with small standard deviation
+model.add(Convolution2D(24,5,5,subsample=(2, 2), border_mode='valid',activation="relu"))
+model.add(Convolution2D(36,5,5,subsample=(2, 2), border_mode='valid',activation="relu"))
+model.add(Convolution2D(48,5,5,subsample=(2, 2), border_mode='valid',activation="relu"))
+model.add(Convolution2D(64,3,3, border_mode='valid',activation="relu"))
+model.add(Convolution2D(64,3,3, border_mode='valid',activation="relu"))
+model.add(Flatten())
+model.add(Dense(100))
+model.add(Dense(50))
+model.add(Dense(10))
+model.add(Dense(1))
+model.summary()
+model.compile(loss='mse', optimizer='adam',metrics=['accuracy'])
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
+model.save('model.h5') #save the model
+```
+#### 3. Nvidia Model Output
+```
+Using TensorFlow backend.
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to                     
+====================================================================================================
+cropping2d_1 (Cropping2D)        (None, 65, 320, 3)    0           cropping2d_input_1[0][0]         
+____________________________________________________________________________________________________
+lambda_1 (Lambda)                (None, 65, 320, 3)    0           cropping2d_1[0][0]               
+____________________________________________________________________________________________________
+convolution2d_1 (Convolution2D)  (None, 31, 158, 24)   1824        lambda_1[0][0]                   
+____________________________________________________________________________________________________
+convolution2d_2 (Convolution2D)  (None, 14, 77, 36)    21636       convolution2d_1[0][0]            
+____________________________________________________________________________________________________
+convolution2d_3 (Convolution2D)  (None, 5, 37, 48)     43248       convolution2d_2[0][0]            
+____________________________________________________________________________________________________
+convolution2d_4 (Convolution2D)  (None, 3, 35, 64)     27712       convolution2d_3[0][0]            
+____________________________________________________________________________________________________
+convolution2d_5 (Convolution2D)  (None, 1, 33, 64)     36928       convolution2d_4[0][0]            
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 2112)          0           convolution2d_5[0][0]            
+____________________________________________________________________________________________________
+dense_1 (Dense)                  (None, 100)           211300      flatten_1[0][0]                  
+____________________________________________________________________________________________________
+dense_2 (Dense)                  (None, 50)            5050        dense_1[0][0]                    
+____________________________________________________________________________________________________
+dense_3 (Dense)                  (None, 10)            510         dense_2[0][0]                    
+____________________________________________________________________________________________________
+dense_4 (Dense)                  (None, 1)             11          dense_3[0][0]                    
+====================================================================================================
+Total params: 348,219
+Trainable params: 348,219
+Non-trainable params: 0
+____________________________________________________________________________________________________
+Train on 38572 samples, validate on 9644 samples
+Epoch 1/1
+38572/38572 [==============================] - 21s - loss: 0.0175 - acc: 0.1802 - val_loss: 0.0204 - val_acc: 0.1837
+```
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
@@ -163,3 +231,4 @@ Note: There is known local system's setting issue with replacing "," with "." wh
 ## References 
 
 [1] http://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
+[2] https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/

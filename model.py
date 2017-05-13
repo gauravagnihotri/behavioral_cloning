@@ -76,4 +76,4 @@ model.add(Dense(1))
 model.summary()
 model.compile(loss='mse', optimizer='adam',metrics=['accuracy'])
 model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
-model.save('model_2.h5') #save the model
+model.save('model.h5') #save the model
