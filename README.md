@@ -2,7 +2,7 @@
 
 Overview
 ---
-This project uses a modified version of [Nvidia's Architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) to train a model to clone driving behavior. The model is built using Keras.
+This project uses a modified version of [Nvidia's Architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) to train a model to clone driving behavior. The model is built using Keras. The model uses left, center and right camera cropped images, applies steering correction factor, uses image flip technique to augment the data. The model is trained with small number of epochs, to avoid overfitting.
 
 ### Dependencies
 This lab requires:
@@ -261,6 +261,8 @@ for image,measurement in zip(images,measurements):
     augmented_measurements.append(measurement*-1.0) #flip all steering angles 
 ```
 
+After augmentation and splitting the dataset for training (80%) and validation (20%), I ended up with 38572 samples for training and 9644 samples for validation
+
 ## Details About Files In This Directory
 
 ### `drive.py`
@@ -283,3 +285,14 @@ The above command will load the trained model and use the model to make predicti
 [1] http://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
 
 [2] https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
+
+Note - this model was built on a local machine using TensorFlow version 1.0.1 compiled for GPU manually. This model may not work on your machine if you have a different version 
+```
+(carnd-term1) garyfirestorm@gary-PC:~/Documents/github/behavioral_cloning$ python3 -c 'import tensorflow as tf; print(tf.__version__)'
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.6 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.8.0 locally
+1.0.1
+```
