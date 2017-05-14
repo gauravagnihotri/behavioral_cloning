@@ -268,7 +268,7 @@ After augmentation and splitting the dataset for training (80%) and validation (
 
 | LENET Model Test | Final Model (Modified NVidia Arch) |
 |:---:|:---:|
-|[![Lenet Architecture Implementation](http://img.youtube.com/vi/nPDw59t4VYw/1.jpg)](https://youtu.be/nPDw59t4VYw) | [![Nvidia Architecture Implementation](http://img.youtube.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U) |
+|[![Lenet Architecture Implementation](https://i.ytimg.com/vi/nPDw59t4VYw/maxresdefault.jpg)](https://youtu.be/nPDw59t4VYw) | [![Nvidia Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/maxresdefault.jpg)](https://youtu.be/gLNZs3Dik_U) |
 
 ## Details About Files In This Directory
 
