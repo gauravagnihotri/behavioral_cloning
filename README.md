@@ -281,4 +281,5 @@ The above command will load the trained model and use the model to make predicti
 ## References 
 
 [1] http://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
+
 [2] https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
