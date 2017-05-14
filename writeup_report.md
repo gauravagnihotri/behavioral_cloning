@@ -136,7 +136,7 @@ LENET architecture is complex enough to train the car to go round half of the tr
 
 ### Running the LENET model in autonomous mode (click on the image to open YouTube Video)
 
-[![Lenet Architecture Implementation](http://img.youtube.com/vi/nPDw59t4VYw/1.jpg)](https://youtu.be/nPDw59t4VYw) 
+[![Lenet Architecture Implementation](https://i.ytimg.com/vi/nPDw59t4VYw/maxresdefault.jpg)](https://youtu.be/nPDw59t4VYw) 
 
 #### 3. Using Nvidia Architecture (Final Model Architecture)
 Nvidia has developed their own network architecture[2] 'to minimize the mean squared error between the steering command output by the network'[2]
@@ -264,11 +264,9 @@ for image,measurement in zip(images,measurements):
 
 After augmentation and splitting the dataset for training (80%) and validation (20%), I ended up with 38572 samples for training and 9644 samples for validation
 
-### Running the models in autonomous mode (click on the image to open YouTube Video)
+### Running the Final Architecture (Modified Nvidia Model) in autonomous mode (click on the image to open YouTube Video)
 
-| LENET Model Test | Final Model (Modified NVidia Arch) |
-|:---:|:---:|
-|[![Lenet Architecture Implementation](https://i.ytimg.com/vi/nPDw59t4VYw/maxresdefault.jpg)](https://youtu.be/nPDw59t4VYw) | [![Nvidia Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/maxresdefault.jpg)](https://youtu.be/gLNZs3Dik_U) |
+[![Nvidia Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/maxresdefault.jpg)](https://youtu.be/gLNZs3Dik_U)
 
 ## Details About Files In This Directory
 
@@ -293,7 +291,7 @@ The above command will load the trained model and use the model to make predicti
 
 [2] https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 
-Note - this model was built on a local machine using TensorFlow version 1.0.1 compiled for GPU manually. This model may not work on your machine if you have a different version 
+Note - this model was built on a local machine using TensorFlow version 1.0.1 compiled for GPU manually. This model may not work on your machine if you have a different version of TensorFlow
 ```
 (carnd-term1) garyfirestorm@gary-PC:~/Documents/github/behavioral_cloning$ python3 -c 'import tensorflow as tf; print(tf.__version__)'
 I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally

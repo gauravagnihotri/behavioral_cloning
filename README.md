@@ -291,7 +291,7 @@ The above command will load the trained model and use the model to make predicti
 
 [2] https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 
-Note - this model was built on a local machine using TensorFlow version 1.0.1 compiled for GPU manually. This model may not work on your machine if you have a different version 
+Note - this model was built on a local machine using TensorFlow version 1.0.1 compiled for GPU manually. This model may not work on your machine if you have a different version of TensorFlow
 ```
 (carnd-term1) garyfirestorm@gary-PC:~/Documents/github/behavioral_cloning$ python3 -c 'import tensorflow as tf; print(tf.__version__)'
 I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally
