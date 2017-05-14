@@ -134,8 +134,9 @@ Epoch 1/1
 
 LENET architecture is complex enough to train the car to go round half of the track, however, the car tries to correct itself too often, resulting in not very smooth performance. The validation loss kept increasing with number of epochs, hence only one epoch was used. The vehicle also drives closer to the edge of the track rather than the center. The vehicle could complete the lap without getting off the road, however the performance is not very consistent and in a separate run, the vehicle brushed with the edge of the bridge. 
 
-##fix the link here 
-[![Lenet Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U) 
+### Running the LENET model in autonomous mode (click on the image to open YouTube Video)
+
+[![Lenet Architecture Implementation](http://img.youtube.com/vi/nPDw59t4VYw/1.jpg)](https://youtu.be/nPDw59t4VYw) 
 
 #### 3. Using Nvidia Architecture (Final Model Architecture)
 Nvidia has developed their own network architecture[2] 'to minimize the mean squared error between the steering command output by the network'[2]
@@ -262,6 +263,10 @@ for image,measurement in zip(images,measurements):
 ```
 
 After augmentation and splitting the dataset for training (80%) and validation (20%), I ended up with 38572 samples for training and 9644 samples for validation
+
+### Running the Final model (modified Nvidia Model) in autonomous mode (click on the image to open YouTube Video)
+
+[![Nvidia Architecture Implementation](http://img.youtube.com/vi/gLNZs3Dik_U/1.jpg)](https://youtu.be/gLNZs3Dik_U) 
 
 ## Details About Files In This Directory
 
