@@ -264,11 +264,9 @@ for image,measurement in zip(images,measurements):
 
 After augmentation and splitting the dataset for training (80%) and validation (20%), I ended up with 38572 samples for training and 9644 samples for validation
 
-### Running the models in autonomous mode (click on the image to open YouTube Video)
+### Running the Nvidia Model in autonomous mode (click on the image to open YouTube Video)
 
-| LENET Model Test | Final Model (Modified NVidia Arch) |
-|:---:|:---:|
-|[![Lenet Architecture Implementation](https://i.ytimg.com/vi/nPDw59t4VYw/maxresdefault.jpg)](https://youtu.be/nPDw59t4VYw) | [![Nvidia Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/maxresdefault.jpg)](https://youtu.be/gLNZs3Dik_U) |
+[![Nvidia Architecture Implementation](https://i.ytimg.com/vi/gLNZs3Dik_U/maxresdefault.jpg)](https://youtu.be/gLNZs3Dik_U)
 
 ## Details About Files In This Directory
 
