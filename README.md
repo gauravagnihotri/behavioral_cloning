@@ -227,7 +227,20 @@ The sample training data was chosen since it contained analog steering angles fr
 For details about how I created the training data, see the next section. 
 
 ### Model Architecture and Training Strategy
-The overall strategy involved using multiple training data sets, identifying flaws by checking the validation accuracy and testing the model by running the simulator in autonomous mode. Modifying model parameters, architectures, epochs to minimize the error. If the vehicle drove off of the road, the training data was reacquired and the model was trained to recover. This strategy was hit and miss since the original data contained some flaws. Eventually, the sample data set was used along with left and right camera images, center image, flipped all images and reversed the steering measurements. The following code shows the steering correction and flip strategy used on all images to develop augmented data set. 
+The overall strategy involved using multiple training data sets, identifying flaws by checking the validation accuracy and testing the model by running the simulator in autonomous mode. Modifying model parameters, architectures, epochs to minimize the error. If the vehicle drove off of the road, the training data was reacquired and the model was trained to recover. This strategy was hit and miss since the original data contained some flaws. 
+
+### Data Preprocessing
+Images were cropped in Keras model using ```model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch))) #crop the data to remove sky and trees```
+
+| Original Image | Area of interest | Cropped Image |
+|:---:|:---:|:---:|
+| ![alt-text](./images/original_image.jpg "Original Image") | ![alt-text](./images/selection_image.jpg "Area of Interest Image") | ![alt-text](./images/cropped_image.jpg "Cropped Image") |
+
+The sample data set was used along with left and right camera images, center image, flipped all images and reversed the steering measurements. The following code shows the steering correction and flip strategy used on all images to develop augmented data set. 
+
+| Sample Left Image | Sample Center Image | Sample Right Image |
+|:---:|:---:|:---:|
+| ![alt-text](./images/example_left.jpg "Left Image") | ![alt-text](./images/example_center.jpg "Center Image") | ![alt-text](./images/example_right.jpg "Right Image") |
 
 ```
 center_image = cv2.imread(center_image_path) 
@@ -247,13 +260,6 @@ for image,measurement in zip(images,measurements):
     augmented_images.append(cv2.flip(image,1)) #flip and append all images
     augmented_measurements.append(measurement*-1.0) #flip all steering angles 
 ```
-
-### Data Preprocessing
-Images were cropped in Keras model using ```model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(row, col, ch))) #crop the data to remove sky and trees```
-
-| Original Image | Area of interest | Cropped Image |
-|:---:|:---:|:---:|
-| ![alt-text](./images/original_image.jpg "Original Image") | ![alt-text](./images/selection_image.jpg "Area of Interest Image") | ![alt-text](./images/cropped_image.jpg "Cropped Image") |
 
 ## Details About Files In This Directory
 
